@@ -4,19 +4,20 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mqtt = require('mqtt');
-process.env.MQTT_QUEUE = 'mqtt://test.mosquitto.org';
-var client  = mqtt.connect(process.env.MQTT_QUEUE);
+process.env.MQTT_BROKER = process.env.MQTT_BROKER || 'mqtt://test.mosquitto.org';
+console.log('connecting to ' + process.env.MQTT_BROKER);
+var queue = 'simagix';
+var client  = mqtt.connect(process.env.MQTT_BROKER);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 http.listen(3001, function(){
   console.log('listening on *:3001');
 });
-
 client.on('connect', function () {
-    client.subscribe("simagix");
+    client.subscribe(queue);
 });
-            
+ 
 client.on('message', function (topic, message) {
     try {
         var doc = {'data': message.toString()};
