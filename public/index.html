@@ -11,12 +11,56 @@
                 var tag = 'img-' + msg.row + '-' + msg.col;
                 var img = document.getElementById(tag);
                 img.src = msg.data;
-                console.log(tag);
-                // document.body.appendChild(img);
             });
+            
+            function init() {
+                var images = [];
+                for(var i = 0; i < 8; i++) {
+                    for(var j = 0; j < 8; j++) {
+                        images.push('/images/dolly_horse-' + i + '-' + j + '.jpeg');
+                    }
+                }
+                var max = 63;
+                for(var i = 0; i < 8; i++) {
+                    for(var j = 0; j < 8; j++) {
+                        var idx = randomInt(0, max--);
+                        var tag = 'img-' + i + '-' + j;
+                        var img = document.getElementById(tag);
+                        var src = images[idx];
+                        img.src = src;
+                        images.slice(idx, 1);
+                    }
+                }
+
+                fill(63) 
+            }
+            
+            function fill(num) {
+                var row = Math.floor(num / 8);
+                var col = num % 8;
+                var tag = 'img-' + row + '-' + col;
+                var src = '/images/dolly_horse-' + row + '-' + col + '.jpeg';
+                document.getElementById(tag).src = src;
+                var onum = 63-num;
+                row = Math.floor(onum / 8);
+                col = onum % 8;
+                tag = 'img-' + row + '-' + col;
+                src = '/images/dolly_horse-' + row + '-' + col + '.jpeg';
+                document.getElementById(tag).src = src;
+                num--;
+                if(num >= 32) {
+                    setTimeout(function() {
+                        fill(num)
+                    }, 50);
+                }
+            }
+            
+            function randomInt (low, high) {
+                return Math.floor(Math.random() * (high - low) + low);
+            }
         </script>
     </head>
-    <body>
+    <body onload='init()'>
       <div align='center'>
         <h2>Signature Map</h2>
         <table border='1'>
