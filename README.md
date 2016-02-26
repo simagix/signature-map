@@ -16,7 +16,7 @@ npm install
 ```
 npm start
 ```
-The default port is 3001, http://localhost:3031.
+The default port is 3301, http://localhost:3031.
   
 ### Docker Build
 ```
@@ -25,5 +25,5 @@ docker build -t signature-map .
 
 ### Docker Run
 ```
-docker run -p 3001:3001 -d signature-map
+docker run -p 3301:3301 -d signature-map
     

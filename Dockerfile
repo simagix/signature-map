@@ -1,5 +1,5 @@
 FROM node:4-onbuild
-EXPOSE 3001
+EXPOSE 3301
 
 ADD . /usr/src/app
 WORKDIR /usr/src/app

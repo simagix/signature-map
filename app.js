@@ -11,8 +11,8 @@ var client  = mqtt.connect(process.env.MQTT_BROKER);
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-http.listen(3001, function(){
-  console.log('listening on *:3001');
+http.listen(3301, function(){
+  console.log('listening on *:3301');
 });
 client.on('connect', function () {
     client.subscribe(queue);
