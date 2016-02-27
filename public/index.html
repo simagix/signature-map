@@ -2,9 +2,11 @@
 <html>
     <head>
         <title>Guest Book</title>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+	    <script src="/controller.js"></script>
         <script>
             var socket = io();
             var signatures = {};
@@ -14,145 +16,16 @@
                 var img = document.getElementById(tag);
                 img.src = msg.data;
             });
-            
-            function init() {
-                var images = [];
-                
-                $.ajax({
-                    type: 'GET',
-                    url: '/images',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    success: function (data) {
-                        images = data;
-                        var max = 63;
-                        for(var i = 0; i < 8; i++) {
-                            for(var j = 0; j < 8; j++) {
-                                var idx = randomInt(0, max--);
-                                var tag = 'img-' + i + '-' + j;
-                                var img = document.getElementById(tag);
-                                var src = images[idx];
-                                img.src = src;
-                                images.slice(idx, 1);
-                            }
-                        }
-                        fill(images.length-1);
-                    }
-                });
-            }
-            
-            function fill(num) {
-                var row = Math.floor(num / 8);
-                var col = num % 8;
-                var tag = 'img-' + row + '-' + col;
-                var src = '/images/map-' + row + '-' + col + '.jpeg';
-                if(! signatures[tag]) {
-                    document.getElementById(tag).src = src;
-                }
-                var onum = 63-num;
-                row = Math.floor(onum / 8);
-                col = onum % 8;
-                tag = 'img-' + row + '-' + col;
-                src = '/images/map-' + row + '-' + col + '.jpeg';
-                if(! signatures[tag]) {
-                    document.getElementById(tag).src = src;
-                }
-                num--;
-                if(num >= 32) {
-                    setTimeout(function() {
-                        fill(num)
-                    }, 50);
-                }
-            }
-            
-            function randomInt (low, high) {
-                return Math.floor(Math.random() * (high - low) + low);
-            }
         </script>
     </head>
-    <body onload='init()'>
+    <body ng-app="signature" ng-controller="SignatureController">
       <div align='center'>
         <h2>Guest Book</h2>
         <table border='1'>
-            <tr>
-                <td><img width='60' id='img-0-0'></td>
-                <td><img width='60' id='img-0-1'></td>
-                <td><img width='60' id='img-0-2'></td>
-                <td><img width='60' id='img-0-3'></td>
-                <td><img width='60' id='img-0-4'></td>
-                <td><img width='60' id='img-0-5'></td>
-                <td><img width='60' id='img-0-6'></td>
-                <td><img width='60' id='img-0-7'></td>
-            </tr>
-            <tr>
-                <td><img width='60' id='img-1-0'></td>
-                <td><img width='60' id='img-1-1'></td>
-                <td><img width='60' id='img-1-2'></td>
-                <td><img width='60' id='img-1-3'></td>
-                <td><img width='60' id='img-1-4'></td>
-                <td><img width='60' id='img-1-5'></td>
-                <td><img width='60' id='img-1-6'></td>
-                <td><img width='60' id='img-1-7'></td>
-            </tr>
-            <tr>
-                <td><img width='60' id='img-2-0'></td>
-                <td><img width='60' id='img-2-1'></td>
-                <td><img width='60' id='img-2-2'></td>
-                <td><img width='60' id='img-2-3'></td>
-                <td><img width='60' id='img-2-4'></td>
-                <td><img width='60' id='img-2-5'></td>
-                <td><img width='60' id='img-2-6'></td>
-                <td><img width='60' id='img-2-7'></td>
-            </tr>
-            <tr>
-                <td><img width='60' id='img-3-0'></td>
-                <td><img width='60' id='img-3-1'></td>
-                <td><img width='60' id='img-3-2'></td>
-                <td><img width='60' id='img-3-3'></td>
-                <td><img width='60' id='img-3-4'></td>
-                <td><img width='60' id='img-3-5'></td>
-                <td><img width='60' id='img-3-6'></td>
-                <td><img width='60' id='img-3-7'></td>
-            </tr>
-            <tr>
-                <td><img width='60' id='img-4-0'></td>
-                <td><img width='60' id='img-4-1'></td>
-                <td><img width='60' id='img-4-2'></td>
-                <td><img width='60' id='img-4-3'></td>
-                <td><img width='60' id='img-4-4'></td>
-                <td><img width='60' id='img-4-5'></td>
-                <td><img width='60' id='img-4-6'></td>
-                <td><img width='60' id='img-4-7'></td>
-            </tr>
-            <tr>
-                <td><img width='60' id='img-5-0'></td>
-                <td><img width='60' id='img-5-1'></td>
-                <td><img width='60' id='img-5-2'></td>
-                <td><img width='60' id='img-5-3'></td>
-                <td><img width='60' id='img-5-4'></td>
-                <td><img width='60' id='img-5-5'></td>
-                <td><img width='60' id='img-5-6'></td>
-                <td><img width='60' id='img-5-7'></td>
-            </tr>
-            <tr>
-                <td><img width='60' id='img-6-0'></td>
-                <td><img width='60' id='img-6-1'></td>
-                <td><img width='60' id='img-6-2'></td>
-                <td><img width='60' id='img-6-3'></td>
-                <td><img width='60' id='img-6-4'></td>
-                <td><img width='60' id='img-6-5'></td>
-                <td><img width='60' id='img-6-6'></td>
-                <td><img width='60' id='img-6-7'></td>
-            </tr>
-            <tr>
-                <td><img width='60' id='img-7-0'></td>
-                <td><img width='60' id='img-7-1'></td>
-                <td><img width='60' id='img-7-2'></td>
-                <td><img width='60' id='img-7-3'></td>
-                <td><img width='60' id='img-7-4'></td>
-                <td><img width='60' id='img-7-5'></td>
-                <td><img width='60' id='img-7-6'></td>
-                <td><img width='60' id='img-7-7'></td>
+            <tr ng-repeat='row in [0,1,2,3,4,5,6,7]'>
+                <td ng-repeat='col in [0,1,2,3,4,5,6,7]'>
+                    <img width='60' id='img-{{row}}-{{col}}'/>
+                </td>
             </tr>
         </table>
       </div>
