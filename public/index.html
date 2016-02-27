@@ -7,8 +7,10 @@
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
         <script>
             var socket = io();
+            var signatures = {};
             socket.on('base64 image', function(msg){
                 var tag = 'img-' + msg.row + '-' + msg.col;
+                signatures[tag] = true;
                 var img = document.getElementById(tag);
                 img.src = msg.data;
             });
@@ -44,13 +46,17 @@
                 var col = num % 8;
                 var tag = 'img-' + row + '-' + col;
                 var src = '/images/map-' + row + '-' + col + '.jpeg';
-                document.getElementById(tag).src = src;
+                if(! signatures[tag]) {
+                    document.getElementById(tag).src = src;
+                }
                 var onum = 63-num;
                 row = Math.floor(onum / 8);
                 col = onum % 8;
                 tag = 'img-' + row + '-' + col;
                 src = '/images/map-' + row + '-' + col + '.jpeg';
-                document.getElementById(tag).src = src;
+                if(! signatures[tag]) {
+                    document.getElementById(tag).src = src;
+                }
                 num--;
                 if(num >= 32) {
                     setTimeout(function() {

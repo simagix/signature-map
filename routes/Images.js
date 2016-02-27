@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var app = require('../app.js');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -11,6 +12,7 @@ router.get('/', function(req, res, next) {
     }
     res.setHeader('Content-Type', 'Application/json');
     res.json(images);
+    app.emitSignatures();
 });
 
 module.exports = router;
