@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
     var images = [];
     for(var i = 0; i < 8; i++) {
         for(var j = 0; j < 8; j++) {
-            images.push('/images/dolly_horse-' + i + '-' + j + '.jpeg');
+            images.push('/images/maps-' + i + '-' + j + '.jpeg');
         }
     }
     res.setHeader('Content-Type', 'Application/json');
