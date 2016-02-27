@@ -43,13 +43,13 @@
                 var row = Math.floor(num / 8);
                 var col = num % 8;
                 var tag = 'img-' + row + '-' + col;
-                var src = '/images/maps-' + row + '-' + col + '.jpeg';
+                var src = '/images/map-' + row + '-' + col + '.jpeg';
                 document.getElementById(tag).src = src;
                 var onum = 63-num;
                 row = Math.floor(onum / 8);
                 col = onum % 8;
                 tag = 'img-' + row + '-' + col;
-                src = '/images/maps-' + row + '-' + col + '.jpeg';
+                src = '/images/map-' + row + '-' + col + '.jpeg';
                 document.getElementById(tag).src = src;
                 num--;
                 if(num >= 32) {
