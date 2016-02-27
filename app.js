@@ -8,8 +8,10 @@ process.env.MQTT_BROKER = process.env.MQTT_BROKER || 'mqtt://test.mosquitto.org'
 console.log('connecting to ' + process.env.MQTT_BROKER);
 var queue = 'simagix';
 var client  = mqtt.connect(process.env.MQTT_BROKER);
+var images = require('./routes/Images');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/images', images);
 
 http.listen(3301, function(){
   console.log('listening on *:3301');

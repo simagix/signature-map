@@ -15,24 +15,28 @@
             
             function init() {
                 var images = [];
-                for(var i = 0; i < 8; i++) {
-                    for(var j = 0; j < 8; j++) {
-                        images.push('/images/dolly_horse-' + i + '-' + j + '.jpeg');
+                
+                $.ajax({
+                    type: 'GET',
+                    url: '/images',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        images = data;
+                        var max = 63;
+                        for(var i = 0; i < 8; i++) {
+                            for(var j = 0; j < 8; j++) {
+                                var idx = randomInt(0, max--);
+                                var tag = 'img-' + i + '-' + j;
+                                var img = document.getElementById(tag);
+                                var src = images[idx];
+                                img.src = src;
+                                images.slice(idx, 1);
+                            }
+                        }
+                        fill(images.length-1);
                     }
-                }
-                var max = 63;
-                for(var i = 0; i < 8; i++) {
-                    for(var j = 0; j < 8; j++) {
-                        var idx = randomInt(0, max--);
-                        var tag = 'img-' + i + '-' + j;
-                        var img = document.getElementById(tag);
-                        var src = images[idx];
-                        img.src = src;
-                        images.slice(idx, 1);
-                    }
-                }
-
-                fill(63) 
+                });
             }
             
             function fill(num) {
@@ -65,84 +69,84 @@
         <h2>Guest Book</h2>
         <table border='1'>
             <tr>
-                <td><img width='60' id='img-0-0' src='/images/dolly_horse-0-0.jpeg'></td>
-                <td><img width='60' id='img-0-1' src='/images/dolly_horse-0-1.jpeg'></td>
-                <td><img width='60' id='img-0-2' src='/images/dolly_horse-0-2.jpeg'></td>
-                <td><img width='60' id='img-0-3' src='/images/dolly_horse-0-3.jpeg'></td>
-                <td><img width='60' id='img-0-4' src='/images/dolly_horse-0-4.jpeg'></td>
-                <td><img width='60' id='img-0-5' src='/images/dolly_horse-0-5.jpeg'></td>
-                <td><img width='60' id='img-0-6' src='/images/dolly_horse-0-6.jpeg'></td>
-                <td><img width='60' id='img-0-7' src='/images/dolly_horse-0-7.jpeg'></td>
+                <td><img width='60' id='img-0-0'></td>
+                <td><img width='60' id='img-0-1'></td>
+                <td><img width='60' id='img-0-2'></td>
+                <td><img width='60' id='img-0-3'></td>
+                <td><img width='60' id='img-0-4'></td>
+                <td><img width='60' id='img-0-5'></td>
+                <td><img width='60' id='img-0-6'></td>
+                <td><img width='60' id='img-0-7'></td>
             </tr>
             <tr>
-                <td><img width='60' id='img-1-0' src='/images/dolly_horse-1-0.jpeg'></td>
-                <td><img width='60' id='img-1-1' src='/images/dolly_horse-1-1.jpeg'></td>
-                <td><img width='60' id='img-1-2' src='/images/dolly_horse-1-2.jpeg'></td>
-                <td><img width='60' id='img-1-3' src='/images/dolly_horse-1-3.jpeg'></td>
-                <td><img width='60' id='img-1-4' src='/images/dolly_horse-1-4.jpeg'></td>
-                <td><img width='60' id='img-1-5' src='/images/dolly_horse-1-5.jpeg'></td>
-                <td><img width='60' id='img-1-6' src='/images/dolly_horse-1-6.jpeg'></td>
-                <td><img width='60' id='img-1-7' src='/images/dolly_horse-1-7.jpeg'></td>
+                <td><img width='60' id='img-1-0'></td>
+                <td><img width='60' id='img-1-1'></td>
+                <td><img width='60' id='img-1-2'></td>
+                <td><img width='60' id='img-1-3'></td>
+                <td><img width='60' id='img-1-4'></td>
+                <td><img width='60' id='img-1-5'></td>
+                <td><img width='60' id='img-1-6'></td>
+                <td><img width='60' id='img-1-7'></td>
             </tr>
             <tr>
-                <td><img width='60' id='img-2-0' src='/images/dolly_horse-2-0.jpeg'></td>
-                <td><img width='60' id='img-2-1' src='/images/dolly_horse-2-1.jpeg'></td>
-                <td><img width='60' id='img-2-2' src='/images/dolly_horse-2-2.jpeg'></td>
-                <td><img width='60' id='img-2-3' src='/images/dolly_horse-2-3.jpeg'></td>
-                <td><img width='60' id='img-2-4' src='/images/dolly_horse-2-4.jpeg'></td>
-                <td><img width='60' id='img-2-5' src='/images/dolly_horse-2-5.jpeg'></td>
-                <td><img width='60' id='img-2-6' src='/images/dolly_horse-2-6.jpeg'></td>
-                <td><img width='60' id='img-2-7' src='/images/dolly_horse-2-7.jpeg'></td>
+                <td><img width='60' id='img-2-0'></td>
+                <td><img width='60' id='img-2-1'></td>
+                <td><img width='60' id='img-2-2'></td>
+                <td><img width='60' id='img-2-3'></td>
+                <td><img width='60' id='img-2-4'></td>
+                <td><img width='60' id='img-2-5'></td>
+                <td><img width='60' id='img-2-6'></td>
+                <td><img width='60' id='img-2-7'></td>
             </tr>
             <tr>
-                <td><img width='60' id='img-3-0' src='/images/dolly_horse-3-0.jpeg'></td>
-                <td><img width='60' id='img-3-1' src='/images/dolly_horse-3-1.jpeg'></td>
-                <td><img width='60' id='img-3-2' src='/images/dolly_horse-3-2.jpeg'></td>
-                <td><img width='60' id='img-3-3' src='/images/dolly_horse-3-3.jpeg'></td>
-                <td><img width='60' id='img-3-4' src='/images/dolly_horse-3-4.jpeg'></td>
-                <td><img width='60' id='img-3-5' src='/images/dolly_horse-3-5.jpeg'></td>
-                <td><img width='60' id='img-3-6' src='/images/dolly_horse-3-6.jpeg'></td>
-                <td><img width='60' id='img-3-7' src='/images/dolly_horse-3-7.jpeg'></td>
+                <td><img width='60' id='img-3-0'></td>
+                <td><img width='60' id='img-3-1'></td>
+                <td><img width='60' id='img-3-2'></td>
+                <td><img width='60' id='img-3-3'></td>
+                <td><img width='60' id='img-3-4'></td>
+                <td><img width='60' id='img-3-5'></td>
+                <td><img width='60' id='img-3-6'></td>
+                <td><img width='60' id='img-3-7'></td>
             </tr>
             <tr>
-                <td><img width='60' id='img-4-0' src='/images/dolly_horse-4-0.jpeg'></td>
-                <td><img width='60' id='img-4-1' src='/images/dolly_horse-4-1.jpeg'></td>
-                <td><img width='60' id='img-4-2' src='/images/dolly_horse-4-2.jpeg'></td>
-                <td><img width='60' id='img-4-3' src='/images/dolly_horse-4-3.jpeg'></td>
-                <td><img width='60' id='img-4-4' src='/images/dolly_horse-4-4.jpeg'></td>
-                <td><img width='60' id='img-4-5' src='/images/dolly_horse-4-5.jpeg'></td>
-                <td><img width='60' id='img-4-6' src='/images/dolly_horse-4-6.jpeg'></td>
-                <td><img width='60' id='img-4-7' src='/images/dolly_horse-4-7.jpeg'></td>
+                <td><img width='60' id='img-4-0'></td>
+                <td><img width='60' id='img-4-1'></td>
+                <td><img width='60' id='img-4-2'></td>
+                <td><img width='60' id='img-4-3'></td>
+                <td><img width='60' id='img-4-4'></td>
+                <td><img width='60' id='img-4-5'></td>
+                <td><img width='60' id='img-4-6'></td>
+                <td><img width='60' id='img-4-7'></td>
             </tr>
             <tr>
-                <td><img width='60' id='img-5-0' src='/images/dolly_horse-5-0.jpeg'></td>
-                <td><img width='60' id='img-5-1' src='/images/dolly_horse-5-1.jpeg'></td>
-                <td><img width='60' id='img-5-2' src='/images/dolly_horse-5-2.jpeg'></td>
-                <td><img width='60' id='img-5-3' src='/images/dolly_horse-5-3.jpeg'></td>
-                <td><img width='60' id='img-5-4' src='/images/dolly_horse-5-4.jpeg'></td>
-                <td><img width='60' id='img-5-5' src='/images/dolly_horse-5-5.jpeg'></td>
-                <td><img width='60' id='img-5-6' src='/images/dolly_horse-5-6.jpeg'></td>
-                <td><img width='60' id='img-5-7' src='/images/dolly_horse-5-7.jpeg'></td>
+                <td><img width='60' id='img-5-0'></td>
+                <td><img width='60' id='img-5-1'></td>
+                <td><img width='60' id='img-5-2'></td>
+                <td><img width='60' id='img-5-3'></td>
+                <td><img width='60' id='img-5-4'></td>
+                <td><img width='60' id='img-5-5'></td>
+                <td><img width='60' id='img-5-6'></td>
+                <td><img width='60' id='img-5-7'></td>
             </tr>
             <tr>
-                <td><img width='60' id='img-6-0' src='/images/dolly_horse-6-0.jpeg'></td>
-                <td><img width='60' id='img-6-1' src='/images/dolly_horse-6-1.jpeg'></td>
-                <td><img width='60' id='img-6-2' src='/images/dolly_horse-6-2.jpeg'></td>
-                <td><img width='60' id='img-6-3' src='/images/dolly_horse-6-3.jpeg'></td>
-                <td><img width='60' id='img-6-4' src='/images/dolly_horse-6-4.jpeg'></td>
-                <td><img width='60' id='img-6-5' src='/images/dolly_horse-6-5.jpeg'></td>
-                <td><img width='60' id='img-6-6' src='/images/dolly_horse-6-6.jpeg'></td>
-                <td><img width='60' id='img-6-7' src='/images/dolly_horse-6-7.jpeg'></td>
+                <td><img width='60' id='img-6-0'></td>
+                <td><img width='60' id='img-6-1'></td>
+                <td><img width='60' id='img-6-2'></td>
+                <td><img width='60' id='img-6-3'></td>
+                <td><img width='60' id='img-6-4'></td>
+                <td><img width='60' id='img-6-5'></td>
+                <td><img width='60' id='img-6-6'></td>
+                <td><img width='60' id='img-6-7'></td>
             </tr>
             <tr>
-                <td><img width='60' id='img-7-0' src='/images/dolly_horse-7-0.jpeg'></td>
-                <td><img width='60' id='img-7-1' src='/images/dolly_horse-7-1.jpeg'></td>
-                <td><img width='60' id='img-7-2' src='/images/dolly_horse-7-2.jpeg'></td>
-                <td><img width='60' id='img-7-3' src='/images/dolly_horse-7-3.jpeg'></td>
-                <td><img width='60' id='img-7-4' src='/images/dolly_horse-7-4.jpeg'></td>
-                <td><img width='60' id='img-7-5' src='/images/dolly_horse-7-5.jpeg'></td>
-                <td><img width='60' id='img-7-6' src='/images/dolly_horse-7-6.jpeg'></td>
-                <td><img width='60' id='img-7-7' src='/images/dolly_horse-7-7.jpeg'></td>
+                <td><img width='60' id='img-7-0'></td>
+                <td><img width='60' id='img-7-1'></td>
+                <td><img width='60' id='img-7-2'></td>
+                <td><img width='60' id='img-7-3'></td>
+                <td><img width='60' id='img-7-4'></td>
+                <td><img width='60' id='img-7-5'></td>
+                <td><img width='60' id='img-7-6'></td>
+                <td><img width='60' id='img-7-7'></td>
             </tr>
         </table>
       </div>
