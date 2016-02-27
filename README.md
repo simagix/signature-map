@@ -26,4 +26,9 @@ docker build -t signature-map .
 ### Docker Run
 ```
 docker run -p 3301:3301 -d signature-map
-    
+```
+
+### Build for Raspberry PI
+```
+docker build -t simagix/signature-map-rpi -f Dockerfile.rpi .
+```
