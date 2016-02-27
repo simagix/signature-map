@@ -3,6 +3,7 @@
 Signature Map is a socket.io app.  The node.js powered web server listens to a MQTT broker and updates the map accordingly.
 
 ### Keywords
+    - AngularJS
     - socket.io
     - Node.js
     - MQTT
