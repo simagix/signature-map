@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
         colors.push({'key': attr, 'color': attr, 'count': app.colorsUsage[attr]});
     }
     colors.sort(function(a, b) {if(a.count >= b.count) return -1; else return 1});
-    if(colors.length > 10) {
-        colors = colors.slice(0, 10);
+    if(colors.length > 5) {
+        colors = colors.slice(0, 5);
     }
     res.json(colors);
 });

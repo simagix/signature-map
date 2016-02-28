@@ -57,12 +57,9 @@ function processImage(message) {
 function aggregateColorDate(message) {
     var doc = JSON.parse(message.toString());
     for(var attr in doc) {
-        console.log(attr);
         if(! colorsUsage[attr]) {
-        console.log('1 ' + attr);
             colorsUsage[attr] = doc[attr];
         } else {
-        console.log('2 ' + attr);
             colorsUsage[attr] += doc[attr];
         }
     }
