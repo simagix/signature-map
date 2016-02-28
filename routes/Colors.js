@@ -6,8 +6,19 @@ var app = require('../app');
 router.get('/', function(req, res, next) {
     res.setHeader('Content-Type', 'Application/json');
     var colors = [];
-    for(var attr in app.colorsUsage) {
-        colors.push({'key': attr, 'color': attr, 'count': app.colorsUsage[attr]});
+    var sums = {};
+    app.colorsUsage.forEach(function(doc) {
+        for(var attr in doc) {
+            if(! sums[attr]) {
+                sums[attr] = doc[attr];
+            } else {
+                sums[attr] += doc[attr];
+            }
+        }
+    });
+    
+    for(var attr in sums) {
+        colors.push({'key': attr, 'color': attr, 'count': sums[attr]});
     }
     colors.sort(function(a, b) {if(a.count >= b.count) return -1; else return 1});
     if(colors.length > 5) {

@@ -31,7 +31,7 @@ angular.module('signature').controller('SignatureController', function($scope, $
             y: function(d) { return d.count; },
             showLegend: false,
             showLabels: true,
-            labelType: 'value',
+            labelType: 'percent',
             valueFormat: d3.format(',.0d')
         }
     };

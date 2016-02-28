@@ -15,7 +15,7 @@ var queue_simagix_color = 'simagix_color';
 var queue_color = 'simagix_color';
 var client  = mqtt.connect(process.env.MQTT_BROKER);
 var signatures = {};
-var colorsUsage = {};
+var colorsUsage = [];
 exports.colorsUsage = colorsUsage;
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,10 +39,11 @@ client.on('message', function (topic, message) {
     }
 });
 
+var imageIndex = 0;
 function processImage(message) {
     try {
         var doc = {'data': message.toString()};
-        var num = randomInt(0, 63);
+        var num = imageIndex++ % 64;
         doc.row = Math.floor(num / 8);
         doc.col = num % 8;
         var tag = doc.row + '-' + doc.col;
@@ -56,17 +57,11 @@ function processImage(message) {
 
 function aggregateColorDate(message) {
     var doc = JSON.parse(message.toString());
-    for(var attr in doc) {
-        if(! colorsUsage[attr]) {
-            colorsUsage[attr] = doc[attr];
-        } else {
-            colorsUsage[attr] += doc[attr];
-        }
+    colorsUsage.push(doc);
+    if(colorsUsage.length > 64) {
+        colorsUsage.shift();
     }
-}
-
-function randomInt (low, high) {
-    return Math.floor(Math.random() * (high - low) + low);
+    console.log('-- ' + JSON.stringify(colorsUsage));
 }
 
 exports.emitSignatures = function() {
