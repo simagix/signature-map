@@ -1,5 +1,5 @@
 
-var app = angular.module('signature', []);
+var app = angular.module('signature', ['nvd3']);
 
 angular.module('signature').controller('SignatureController', function($scope, $http) {
 	angular.element(document).ready(function () {
@@ -21,9 +21,29 @@ angular.module('signature').controller('SignatureController', function($scope, $
             fill(images.length-1);
     	});
     });
+    
+    $scope.pie = {'data': []};
+    $scope.pie.options = {
+        chart: {
+            type: 'pieChart',
+            height: 500,
+            x: function(d) { return d.key; },
+            y: function(d) { return d.count; },
+            showLegend: false,
+            showLabels: true,
+            labelType: 'value',
+            valueFormat: d3.format(',.0d')
+        }
+    };
+    
+    $scope.getAggregatedPieData = function() {
+    	var uri = "/colors";
+    	$http.get(uri).success(function(data) {
+            $scope.pie.data = data;
+        });
+    }
 });
-
-            
+ 
 function fill(num) {
     var row = Math.floor(num / 8);
     var col = num % 8;
