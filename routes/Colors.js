@@ -9,6 +9,10 @@ router.get('/', function(req, res, next) {
     for(var attr in app.colorsUsage) {
         colors.push({'key': attr, 'color': attr, 'count': app.colorsUsage[attr]});
     }
+    colors.sort(function(a, b) {if(a.count >= b.count) return -1; else return 1});
+    if(colors.length > 10) {
+        colors = colors.slice(0, 10);
+    }
     res.json(colors);
 });
 
