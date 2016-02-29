@@ -27,11 +27,19 @@ http.listen(3301, function(){
 });
 
 client.on('connect', function () {
+    if(process.env.ENV == 'dev') {
+        console.log('connected to ' + process.env.MQTT_BROKER);
+    }
+    console.log('subscribing to ' + queue_simagix);
     client.subscribe(queue_simagix);
+    console.log('subscribing to ' + queue_simagix_color);
     client.subscribe(queue_simagix_color);
 });
  
 client.on('message', function (topic, message) {
+    if(process.env.ENV == 'dev') {
+        console.log('received ' + message.toString());
+    }
     if(topic == queue_simagix) {
         processImage(message);
     } else if(topic == queue_simagix_color) {
@@ -50,6 +58,9 @@ function processImage(message) {
         doc.time = new Date().getTime();
         signatures[tag] = doc;
         io.emit('base64 image', doc);
+        if(process.env.ENV == 'dev') {
+            console.log('emitted ' + doc);
+        }
     } catch(e) {
         console.log(e);
     }
@@ -61,7 +72,6 @@ function aggregateColorDate(message) {
     if(colorsUsage.length > 64) {
         colorsUsage.shift();
     }
-    console.log('-- ' + JSON.stringify(colorsUsage));
 }
 
 exports.emitSignatures = function() {
