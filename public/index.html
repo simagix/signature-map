@@ -21,13 +21,6 @@
                 var img = document.getElementById(tag);
                 img.src = msg.data;
             });
-            
-            setInterval(function() {
-                var scope = angular.element($("#pie_chart")).scope();
-                scope.$apply(function() {
-                    scope.getAggregatedPieData();
-                });
-            }, 5e3);
         </script>
         <div align='center'>
             <div class="row">

@@ -20,6 +20,10 @@ angular.module('signature').controller('SignatureController', function($scope, $
             }
             fill(images.length-1);
     	});
+            
+        setInterval(function () {
+            $scope.getAggregatedPieData();
+        }, 5e3);
     });
     
     $scope.pie = {'data': []};
